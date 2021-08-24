@@ -1,0 +1,11 @@
+DROP USER_DB;
+CREATE DATABASE USER_DB;
+USE USER_DB;
+
+CREATE TABLE user(
+       id VARCHAR(10) NOT NULL,
+       name VARCHAR(30),
+       address VARCHAR(25),
+       password VARCHAR (10),
+       CONSTRAINT PRIMARY KEY(id)
+);
