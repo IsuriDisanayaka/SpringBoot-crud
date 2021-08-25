@@ -1,7 +1,10 @@
 package lk.wixis.springboot.service;
 
 import lk.wixis.springboot.dto.UserDTO;
+import lk.wixis.springboot.model.User;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -10,13 +13,14 @@ import java.util.ArrayList;
  * @since : 0.0.1
  **/
 public interface UserService {
-    void addUser(UserDTO dto);
+    boolean addUser(UserDTO dto);
 
-    void deleteUser(String id);
+    boolean deleteUser(UserDTO dto);
 
-    UserDTO searchUser(String id);
+    User searchUser(String id) throws SQLException;
+     UserDTO searchUser(ResultSet id) throws SQLException;
 
     ArrayList<UserDTO> getAllUsers();
 
-    void updateUser(UserDTO dto);
+ boolean updateUser(UserDTO dto);
 }

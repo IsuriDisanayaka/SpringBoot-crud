@@ -1,8 +1,9 @@
 package lk.wixis.springboot.dao;
 
-import lk.wixis.springboot.dto.UserDTO;
 import lk.wixis.springboot.model.User;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +16,11 @@ public interface UserDAO {
 
    int addUser(User user);
 
-    void deleteUser(String id);
+    int deleteUser(User user);
 
-    User searchUser(String id);
+User searchUser(ResultSet resultSet) throws SQLException;
 
-    ArrayList<User> getAllUsers();
+   List<User> getAllUsers();
 
-    void updateUser(UserDTO dto);
+    int updateUser(User user);
 }

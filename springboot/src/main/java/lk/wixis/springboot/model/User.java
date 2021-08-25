@@ -2,6 +2,7 @@ package lk.wixis.springboot.model;
 
 
 import javax.persistence.Id;
+import java.sql.ResultSet;
 
 /**
  * @author : Isuri Disanayaka
@@ -9,7 +10,7 @@ import javax.persistence.Id;
  * @since : 0.0.1
  **/
 
-public class User {
+public class User  {
 
     private String id;
     private String name;

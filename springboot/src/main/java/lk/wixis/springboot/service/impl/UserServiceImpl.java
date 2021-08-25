@@ -4,10 +4,13 @@ import lk.wixis.springboot.dao.impl.UserDAOImpl;
 import lk.wixis.springboot.dto.UserDTO;
 import lk.wixis.springboot.model.User;
 import lk.wixis.springboot.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -25,22 +28,72 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDAOImpl dao;
 
+    @Autowired
+    private ModelMapper mapper;
+//
+//    @Autowired
+//    private ModelMapper mapper;
 
 
     @Override
-    public void addUser(UserDTO dto) {
-        dao.addUser(new User(dto.getId(),dto.getName(),dto.getAddress(),dto.getPassword()));
+    public boolean addUser(UserDTO dto) {
+        int save = dao.addUser(getUser((dto)));
+
+        if(save==1){
+            return true;
+        }else {
+            return false;
+        }
+
+
+
+    }
+    private User getUser(UserDTO dto){
+
+        return mapper.map(dto, User.class);
+    }
+    private User getUserId(String id){
+
+        return mapper.map(id, User.class);
+    }
+
+
+
+
+    @Override
+    public boolean deleteUser(UserDTO dto) {
+        int delete = dao.deleteUser(getUser((dto)));
+
+        if(delete==1){
+            return true;
+        }else {
+            return false;
+        }
+
+
 
     }
 
     @Override
-    public void deleteUser(String id) {
+    public UserDTO searchUser(ResultSet id) throws SQLException {
+        User user=dao.searchUser(id);
+        return new UserDTO(user.getId(),user.getName(),user.getAddress(),user.getPassword());
+//        User search = dao.searchUser((ResultSet) getUserId((id)));
+//
+//       return search;
 
     }
 
     @Override
-    public UserDTO searchUser(String id) {
-        return null;
+    public User searchUser(String id) throws SQLException {
+
+        User users = dao.searchUser((ResultSet) getUserId((id)));
+//       // dao.searchUser(getUserDTO((id)));
+//        User user=new User();
+//        return new User(user.getId(),user.getName(),user.getAddress(),user.getPassword());
+        return users;
+//    }
+
     }
 
     @Override
@@ -49,7 +102,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(UserDTO dto) {
+    public boolean updateUser(UserDTO dto) {
+        int update = dao.updateUser(getUser((dto)));
+
+        if(update==1){
+            return true;
+        }else {
+            return false;
+        }
+
+
 
     }
+
 }
