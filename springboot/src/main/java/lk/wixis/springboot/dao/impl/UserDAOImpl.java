@@ -61,7 +61,43 @@ public class UserDAOImpl implements UserDAO {
         //return jdbcTemplate.update(deletequery);
     }
 
-    @Override
+   // @Override
+//    public User findUser(ResultSet resultSet) throws SQLException {
+//        String query = "SELECT * FROM USER WHERE id:id";
+//
+//
+//        return jdbcTemplate.query(query,this::searchUser);
+//
+//    }
+//
+//    @Override
+//    public int getUser(String id) {
+//        String query = "ELECT * FROM USER WHERE id:id";
+//        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+//        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+//        mapSqlParameterSource.getValue("id" );
+//        mapSqlParameterSource.getValue("name");
+//        mapSqlParameterSource.getValue("address");
+//        mapSqlParameterSource.getValue("password");
+//
+//        return namedParameterJdbcTemplate.update(query, mapSqlParameterSource);
+//
+//    }
+
+
+
+        @Override
+    public User getUser(String id) {
+        String sql = "SELECT * FROM USER WHERE id=?";
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+            return new User(rs.getString("id"),
+                    rs.getString("name"),
+                    rs.getString("address"),
+                    rs.getString("password"));
+        }, id);
+    }
+    // @Override
+
     public User searchUser(ResultSet resultSet) throws SQLException {
 
        User user=new User();
@@ -69,24 +105,25 @@ public class UserDAOImpl implements UserDAO {
        user.setId(resultSet.getString("id"));
        user.setName(resultSet.getString("name"));
        user.setAddress(resultSet.getString("address"));
-       user.setPassword(resultSet.getString(("password")));
+       user.setPassword(resultSet.getString("password"));
+
        return user;
 
     }
 
     @Override
     public List<User> getAllUsers() {
-        String sql = "SELECT * FROM user WHERE ACTIVE=1";
+        String sql = "SELECT * FROM user";
         List<User> list = null;
         try {
-            list = jdbcTemplate.query(sql, new ResultSetExtractor<List<User>>() {
+            list = jdbcTemplate.query(sql,new ResultSetExtractor<List<User>>() {
                 @Override
                 public List<User> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
                     List<User> listTemp = new ArrayList<>();
                     while (resultSet.next()) {
                         try {
-                           // User user = getAllUsers(resultSet);
-                          //  listTemp.add(user);
+                            User user = searchUser(resultSet);
+                            listTemp.add(user);
                         } catch (Exception ex) {
 
                         }

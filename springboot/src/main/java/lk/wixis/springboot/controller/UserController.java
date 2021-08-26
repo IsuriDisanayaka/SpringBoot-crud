@@ -37,44 +37,46 @@ public class UserController {
 
     @PostMapping("/userSave")
     @ResponseBody
-    public String save(@RequestParam String id,@RequestParam String name,@RequestParam String address,
-                       @RequestParam String password)throws Exception {
-      UserDTO dto=new UserDTO();
+    public String save(@RequestParam String id, @RequestParam String name, @RequestParam String address,
+                       @RequestParam String password) throws Exception {
+        UserDTO dto = new UserDTO();
         dto.setId(id);
         dto.setName(name);
         dto.setAddress(address);
         dto.setPassword(password);
 
-        if(service.addUser(dto)){
+        if (service.addUser(dto)) {
             return "200";
-        }else {
+        } else {
             return "500";
         }
 
 
     }
+
     @PutMapping("/userUpdate")
     @ResponseBody
-    public String update(@RequestParam String id,@RequestParam String name,@RequestParam String address,
-                       @RequestParam String password)throws Exception {
-        UserDTO dto=new UserDTO();
+    public String update(@RequestParam String id, @RequestParam String name, @RequestParam String address,
+                         @RequestParam String password) throws Exception {
+        UserDTO dto = new UserDTO();
         dto.setId(id);
         dto.setName(name);
         dto.setAddress(address);
         dto.setPassword(password);
 
-        if(service.updateUser(dto)){
+        if (service.updateUser(dto)) {
             return "200";
-        }else {
+        } else {
             return "500";
         }
 
 
     }
+
     @DeleteMapping("/userDelete")
     @ResponseBody
-    public String delete(@RequestParam String id,@RequestParam String name,@RequestParam String address,
-                         @RequestParam String password)throws Exception {
+    public String delete(@RequestParam String id, @RequestParam String name, @RequestParam String address,
+                         @RequestParam String password) throws Exception {
         UserDTO dto = new UserDTO();
         dto.setId(id);
         dto.setName(name);
@@ -89,18 +91,31 @@ public class UserController {
 
 
     }
+//
+//    @GetMapping("/userFind/{id}")
+//    public UserDTO searchEmployee(@PathVariable("id") ResultSet id) throws SQLException {
+////        UserDTO dto = new UserDTO();
+//        //  dto.setId(id);
+//        return service.searchUser(id);
+//    }
 
-    @GetMapping("/userFind/{id}")
-    public UserDTO searchEmployee(@PathVariable("id") ResultSet id) throws SQLException {
-//        UserDTO dto = new UserDTO();
-      //  dto.setId(id);
-        return service.searchUser(id);
-    }
-
-
-
+//[]
     @GetMapping("/users")
-    public ArrayList<UserDTO> getUsers() {
-        return service.getAllUsers();
+   @ResponseBody
+    public ArrayList<UserDTO> getAllUser() {
+        ArrayList<UserDTO> allUser = (ArrayList<UserDTO>) service.getAllUsers();
+        return allUser;
+     //   return service.getAllUsers();
     }
+
+    @GetMapping("/user/{id}")
+    @ResponseBody
+    public UserDTO getUser(@PathVariable("id") String id) throws SQLException {
+       // return  service.getUser(id);
+       return service.getUser(id);
     }
+
+
+
+
+}
