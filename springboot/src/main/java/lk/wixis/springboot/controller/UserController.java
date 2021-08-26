@@ -6,8 +6,9 @@ import lk.wixis.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,13 +28,14 @@ public class UserController {
     @Autowired
     UserService service;
 
-//   UserDAO dao;
 
-//    @PostMapping("/user")
-//    public int addUser (@RequestBody User user){
-//
-//        return  dao.addUser(user);
-//    }
+@GetMapping( value="/userform")
+@ResponseBody
+public ModelAndView userView(){
+    ModelAndView modelAndView=new ModelAndView("userSave/user_form");
+    return modelAndView;
+
+}
 
     @PostMapping("/userSave")
     @ResponseBody
@@ -114,6 +116,8 @@ public class UserController {
        // return  service.getUser(id);
        return service.getUser(id);
     }
+
+
 
 
 
