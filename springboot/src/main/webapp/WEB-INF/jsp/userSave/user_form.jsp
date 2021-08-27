@@ -144,9 +144,11 @@ background: #a05353; ">
             timeout: 600000,
             success: function (data) {
                 console.log("SUCCESS : ", data);
+                alert("Save User")
             },
             error: function (e) {
                 console.log("ERROR : ", e);
+                alert("Failed Save User")
             }
         });
 
@@ -185,10 +187,12 @@ background: #a05353; ">
             success: function (data) {
 
                 console.log("SUCCESS : ", data);
+                alert("Do you want Edit User?")
 
             },
             error: function (e) {
                 console.log("ERROR : ", e);
+                alert("Upadate Failed")
 
 
             }
@@ -203,6 +207,7 @@ background: #a05353; ">
         let password= $("#password").val();
 
         event.preventDefault();
+        alert("Do you want delete User?")
 
         var form = $('form').get(0);
 
@@ -254,8 +259,9 @@ background: #a05353; ">
                 $("#name").val(data.name);
                 $("#address").val(data.address);
                 $("#password").val(data.password);
-
+                alert("User Found")
             }
+
         })}
 
 
