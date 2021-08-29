@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ import java.util.ArrayList;
  **/
 
 @Controller
+@CrossOrigin
 @RequestMapping( value = "/api")
 public class UserController {
 //    @Autowired
@@ -39,7 +41,7 @@ public ModelAndView userView(){
 
     @PostMapping("/userSave")
     @ResponseBody
-    public String save(@RequestParam String id, @RequestParam String name, @RequestParam String address,
+    public String save(  @RequestParam String id, @RequestParam String name, @RequestParam String address,
                        @RequestParam String password) throws Exception {
         UserDTO dto = new UserDTO();
         dto.setId(id);
@@ -58,7 +60,7 @@ public ModelAndView userView(){
 
     @PutMapping("/userUpdate")
     @ResponseBody
-    public String update(@RequestParam String id, @RequestParam String name, @RequestParam String address,
+    public String update( @RequestParam String id, @RequestParam String name, @RequestParam String address,
                          @RequestParam String password) throws Exception {
         UserDTO dto = new UserDTO();
         dto.setId(id);
@@ -77,7 +79,7 @@ public ModelAndView userView(){
 
     @DeleteMapping("/userDelete")
     @ResponseBody
-    public String delete(@RequestParam String id, @RequestParam String name, @RequestParam String address,
+    public String delete( @RequestParam String id, @RequestParam String name, @RequestParam String address,
                          @RequestParam String password) throws Exception {
         UserDTO dto = new UserDTO();
         dto.setId(id);
